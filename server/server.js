@@ -16,6 +16,16 @@ app.use(cors());
 app.use(express.json()); // To parse JSON bodies
 app.use('/api/entries', require('./routes/entries'));
 
+const path = require('path');
+
+// Serve static frontend
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Fallback for SPA (single-page app)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
