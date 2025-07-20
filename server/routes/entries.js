@@ -43,4 +43,39 @@ router.get('/', async (req, res) => {
 
 module.exports = router;
 
+// GET: Mood streak (consecutive journaling days)
+// GET: Mood streak (consecutive journaling days)
+router.get('/streak', async (req, res) => {
+    try {
+        const entries = await Entry.find().sort({ date: -1 });
+
+        if (!entries.length) return res.json({ streak: 0 });
+
+        let streak = 1;
+        let prevDate = new Date();
+        prevDate.setHours(0, 0, 0, 0); // today at midnight
+
+        for (let entry of entries) {
+            const entryDate = new Date(entry.date);
+            entryDate.setHours(0, 0, 0, 0);
+
+            const diff = (prevDate - entryDate) / (1000 * 60 * 60 * 24);
+
+            if (diff === 0) continue; // same day, already counted
+            if (diff === 1) {
+                streak++;
+                prevDate = entryDate;
+            } else {
+                break; // not a streak day
+            }
+        }
+
+        res.json({ streak });
+    } catch (err) {
+        console.error('Streak error:', err);
+        res.status(500).json({ error: 'Failed to calculate streak' });
+    }
+});
+
+
 

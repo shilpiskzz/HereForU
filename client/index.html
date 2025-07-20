@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HereForU – Mood Journal</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <header class="top-bar">
+        <div class="logo">💙 HereForU</div>
+        <nav>
+            <a class="active" href="#">🏠 Home</a>
+            <a href="#">🕒 History</a>
+        </nav>
+    </header>
+    <section class="welcome">
+        <h1>Welcome to <span>HereForU</span></h1>
+        <p>Your safe space for emotional awareness and mental well-being. Share your feelings and track your mood
+            journey.</p>
+    </section>
+
+
+    <main class="layout">
+        <section class="journal-card">
+            <h2>How are you feeling today?</h2>
+            <p>Share your thoughts and let's understand your mood together</p>
+            <form id="journal-form">
+                <textarea id="entryText"
+                    placeholder="Write about your feelings, thoughts, or what's on your mind today..."
+                    required></textarea>
+                <button type="submit">🤍 Analyze My Mood</button>
+            </form>
+            <div id="currentMood"></div>
+        </section>
+
+        <section class="side-widgets">
+            <div class="card streak">
+                <h3>Mood Streak</h3>
+                <p><strong>0 days</strong></p>
+                <small>Keep journaling daily!</small>
+            </div>
+            <div class="card affirmation">
+                <h3>🌟 Daily Affirmation</h3>
+                <blockquote>
+                    "Your feelings are valid, and it's okay to feel whatever you're feeling. Every emotion is temporary,
+                    and you have the strength to navigate through them."
+                </blockquote>
+            </div>
+        </section>
+    </main>
+
+    <section class="history">
+        <h2>Journal History</h2>
+        <ul id="entriesList"></ul>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

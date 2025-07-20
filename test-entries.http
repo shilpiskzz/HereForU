@@ -1,2 +1,7 @@
-### GET all entries
-GET http://localhost:5000/api/entries
+### POST a journal entry
+POST http://localhost:5000/api/entries
+Content-Type: application/json
+
+{
+  "text": "I'm feeling amazing today. So productive and focused!"
+}

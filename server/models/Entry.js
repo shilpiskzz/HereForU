@@ -1,5 +1,10 @@
 // server/models/Entry.js
 const mongoose = require('mongoose');
+// Add this helper function near the top
+function dateOnly(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
 
 // Schema defines what each journal entry should look like
 const entrySchema = new mongoose.Schema({
@@ -14,7 +19,7 @@ const entrySchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: Date.now,
+        default: () => dateOnly(new Date()),
     },
 });
 
