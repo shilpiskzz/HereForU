@@ -73,7 +73,7 @@ async function fetchEntries() {
 
 async function fetchStreak() {
     try {
-        const res = await fetch('https://hereforu.onrender.com/api/entries');
+        const res = await fetch('https://hereforu.onrender.com/api/entries/streak');
         const { streak } = await res.json();
         document.querySelector('.streak p strong').textContent = `${streak} days`;
     } catch (err) {

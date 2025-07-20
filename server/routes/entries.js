@@ -5,7 +5,7 @@ const Entry = require('../models/Entry');
 const router = express.Router();
 const sentiment = new Sentiment();
 
-// POST: Create a new journal entry
+// POST: Create a new journal entry with sentiment analysis
 router.post('/', async (req, res) => {
     try {
         const { text } = req.body;
@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
 
         res.status(201).json(savedEntry);
     } catch (err) {
-        console.error(err);
+        console.error('❌ Failed to save entry:', err);
         res.status(500).json({ error: 'Failed to save entry' });
     }
 });
@@ -34,48 +34,45 @@ router.post('/', async (req, res) => {
 // GET: Retrieve all journal entries
 router.get('/', async (req, res) => {
     try {
-        const entries = await Entry.find().sort({ date: -1 });
+        const entries = await Entry.find().sort({ createdAt: -1 });
         res.json(entries);
     } catch (err) {
+        console.error('❌ Failed to fetch entries:', err);
         res.status(500).json({ error: 'Failed to fetch entries' });
     }
 });
 
-module.exports = router;
-
-// GET: Mood streak (consecutive journaling days)
 // GET: Mood streak (consecutive journaling days)
 router.get('/streak', async (req, res) => {
     try {
-        const entries = await Entry.find().sort({ date: -1 });
+        const entries = await Entry.find().sort({ createdAt: -1 });
 
-        if (!entries.length) return res.json({ streak: 0 });
-
-        let streak = 1;
-        let prevDate = new Date();
-        prevDate.setHours(0, 0, 0, 0); // today at midnight
+        let streak = 0;
+        let today = new Date();
+        today.setHours(0, 0, 0, 0);
 
         for (let entry of entries) {
-            const entryDate = new Date(entry.date);
+            const entryDate = new Date(entry.createdAt);
             entryDate.setHours(0, 0, 0, 0);
 
-            const diff = (prevDate - entryDate) / (1000 * 60 * 60 * 24);
-
-            if (diff === 0) continue; // same day, already counted
-            if (diff === 1) {
+            if (entryDate.getTime() === today.getTime()) {
                 streak++;
-                prevDate = entryDate;
+                today.setDate(today.getDate() - 1);
+            } else if (entryDate.getTime() === today.getTime() - 86400000) {
+                streak++;
+                today.setDate(today.getDate() - 1);
             } else {
-                break; // not a streak day
+                break;
             }
         }
 
         res.json({ streak });
     } catch (err) {
-        console.error('Streak error:', err);
+        console.error('❌ Failed to calculate streak:', err);
         res.status(500).json({ error: 'Failed to calculate streak' });
     }
 });
 
+module.exports = router;
 
 
