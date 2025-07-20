@@ -30,7 +30,7 @@ form.addEventListener('submit', async (e) => {
     if (!text) return;
 
     try {
-        const response = await fetch('http://localhost:5000/api/entries', {
+        const response = await fetch('https://hereforu.onrender.com/api/entries', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text })
@@ -57,7 +57,7 @@ form.addEventListener('submit', async (e) => {
 // 📥 Fetch & display past entries
 async function fetchEntries() {
     try {
-        const res = await fetch('http://localhost:5000/api/entries');
+        const res = await fetch('https://hereforu.onrender.com/api/entries');
         const entries = await res.json();
 
         entriesList.innerHTML = '';
@@ -73,7 +73,7 @@ async function fetchEntries() {
 
 async function fetchStreak() {
     try {
-        const res = await fetch('http://localhost:5000/api/entries/streak');
+        const res = await fetch('https://hereforu.onrender.com/api/entries');
         const { streak } = await res.json();
         document.querySelector('.streak p strong').textContent = `${streak} days`;
     } catch (err) {
