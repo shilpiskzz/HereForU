@@ -1,4 +1,14 @@
 // client/app.js
+const affirmations = [
+    "You are enough just as you are.",
+    "This moment is a fresh start.",
+    "You can handle anything that comes your way.",
+    "Emotions are visitors — let them come and go.",
+    "You’re doing your best, and that is enough.",
+    "Healing takes time. Be gentle with yourself.",
+    "You are worthy of love and peace.",
+    "Today is a new opportunity for growth."
+];
 
 const form = document.getElementById('journal-form');
 const entryText = document.getElementById('entryText');
@@ -9,6 +19,7 @@ const entriesList = document.getElementById('entriesList');
 window.addEventListener('DOMContentLoaded', () => {
     fetchEntries();
     fetchStreak(); // ✅ This is the line you add here
+    setRandomAffirmation();
 });
 
 // 📨 Handle form submission
@@ -69,3 +80,10 @@ async function fetchStreak() {
         console.error('Failed to load streak:', err);
     }
 }
+
+function setRandomAffirmation() {
+    const index = Math.floor(Math.random() * affirmations.length);
+    const block = document.querySelector('.affirmation blockquote');
+    block.textContent = affirmations[index];
+}
+
