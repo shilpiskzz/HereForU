@@ -1,0 +1,19 @@
+{
+    "name": "hereforu",
+    "version": "1.0.0",
+    "description": "Mood journaling app with sentiment detection",
+    "main": "server/server.js",
+    "scripts": {
+        "start": "node server/server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.6.1",
+        "express": "^4.21.2",
+        "mongoose": "^7.8.7",
+        "sentiment": "^5.0.2"
+    }
+}
