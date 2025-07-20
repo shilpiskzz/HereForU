@@ -1,0 +1,2 @@
+HereForU – A Full Stack Sentiment-Based Mood Support App
+Built a full-stack application (HTML/CSS/JS, Node.js, MongoDB) where users can journal their feelings. Backend uses sentiment analysis (NLP) to detect mood and stores entries in MongoDB. Frontend displays current mood and maintains a history log. Showcased integration of REST APIs, user input handling, and emotional intelligence features in a responsive UI.
