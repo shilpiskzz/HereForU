@@ -30,11 +30,12 @@
 // server/models/Entry.js
 const mongoose = require('mongoose');
 
-// Helper to store only year/month/day
+// Helper: set time to 00:00:00 for clean date comparison
 function dateOnly(date) {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
+// Schema
 const entrySchema = new mongoose.Schema({
     text: {
         type: String,
@@ -47,15 +48,12 @@ const entrySchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: () => {
-            const d = new Date();
-            return new Date(d.getFullYear(), d.getMonth(), d.getDate());
-        },
-    },
+        default: () => dateOnly(new Date()),
+    }
 }, {
-    timestamps: true // ✅ This is the missing piece
+    timestamps: true // ✅ Needed for streak tracking (createdAt)
 });
 
-
-module.exports = mongoose.model('Entry', entrySchema);
+// ✅ Define then export
+const Entry = mongoose.model('Entry', entrySchema);
 module.exports = Entry;
