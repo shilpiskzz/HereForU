@@ -47,9 +47,15 @@ const entrySchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: () => dateOnly(new Date()),
-    }
+        default: () => {
+            const d = new Date();
+            return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        },
+    },
+}, {
+    timestamps: true // ✅ This is the missing piece
 });
 
-module.exports = mongoose.model('Entry', entrySchema);
 
+module.exports = mongoose.model('Entry', entrySchema);
+module.exports = Entry;

@@ -103,7 +103,11 @@ router.post('/', async (req, res) => {
         const newEntry = new Entry({ text, mood });
         await newEntry.save();
 
-        res.status(201).json({ text: newEntry.text, mood: newEntry.mood });
+        res.status(201).json({
+            text: savedEntry.text,
+            mood: savedEntry.mood,
+            date: savedEntry.date,
+        });
     } catch (err) {
         console.error('❌ Failed to save entry:', err);
         res.status(500).json({ error: 'Failed to save entry' });

@@ -63,7 +63,8 @@ async function fetchEntries() {
         entriesList.innerHTML = '';
         entries.forEach(entry => {
             const li = document.createElement('li');
-            li.textContent = `[${entry.mood}] ${entry.text}`;
+            const date = new Date(entry.date).toLocaleDateString();
+            li.textContent = `[${date}] [${entry.mood}] ${entry.text}`;
             entriesList.appendChild(li);
         });
     } catch (err) {
